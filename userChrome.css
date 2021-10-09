@@ -1,0 +1,313 @@
+/* ----------- this is for certain sites that try to open a pdf file, etc automatically and cause a drop down prompt - if it causes a problem with other sites, comment it out ----------- */
+
+.notificationbox-stack[notificationside="top"] > notification {
+    display: none;
+}
+
+/*--------------- removes flagfox from right click menu -------------------- */
+#_1018e4d6-728f-4b20-ad56-37578a4de76b_-menuitem-_Flagfox\:1\:submenu {
+    display: none !important;
+} 
+
+/*---------------  remove favorites button from location bar --------------- */
+#star-button {
+    display: none !important;
+} 
+
+/* --------------- removes https large icon --------------- */
+#identity-box #identity-icon-labels {
+    display:none;
+}
+
+/* removes unsorted bookmarks from bookmarks dropdown */
+#BMB_unsortedBookmarks, #bookmarksMenuPopup menuseparator[builder="end"], #menu_unsortedBookmarks, #appmenu_bookmarksPopup menuseparator[builder="end"], #appmenu_unsortedBookmarks {
+    display: none !important;
+}
+
+#pageActionButton {
+    display: none;
+}
+
+#PanelUI-menu-button
+{
+    display: none !important;
+}
+
+/* --------------- Hide "Send Page to Device" and preceding separator from context menu --------------- */
+#contentAreaContextMenu #context-sendpagetodevice, 
+#contentAreaContextMenu #context-sep-sendpagetodevice {
+  display: none !important;
+}
+
+
+/*---------------- Lengthy search box --------------- */
+/*#PopupSearchAutoComplete .search-panel-tree {
+  display: block !important;
+  width: 100% !important;
+}
+
+#PopupSearchAutoComplete .search-panel-tree *[anonid="main-box"] {
+  width: 100%;
+}
+
+#PopupSearchAutoComplete .search-panel-one-offs .searchbar-engine-one-off-item {
+  -moz-appearance:none !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  border: unset !important;
+  height: 22px !important;
+  background-image: unset !important;
+  -moz-padding-start: 3px !important;
+}
+
+#PopupSearchAutoComplete .search-panel-one-offs .searchbar-engine-one-off-item:not([tooltiptext]) {
+  display: none !important;
+}
+
+#PopupSearchAutoComplete .search-panel-one-offs .searchbar-engine-one-off-item .button-box{
+  position: absolute !important;
+  -moz-padding-start: 4px !important;
+  margin-top: 3px !important;
+}
+
+#PopupSearchAutoComplete .search-panel-one-offs .searchbar-engine-one-off-item::after {
+  -moz-appearance: none !important;
+  display: inline !important;
+  content: attr(tooltiptext) !important;
+  position: relative !important;
+  top: -9px !important;
+  -moz-padding-start: 25px !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  white-space: nowrap !important;
+}
+
+#PopupSearchAutoComplete .search-panel-tree > .autocomplete-richlistitem > .ac-type-icon {
+  -moz-padding-end: 0px !important;
+  -moz-margin-end: -3px !important;
+}*/
+
+/* ------------- remove tab when no other tabs present -------------- */
+
+#tabbrowser-tabs, #tabbrowser-tabs > .tabbrowser-arrowscrollbox {
+	min-height: 0 !important;
+}
+
+#tabbrowser-tabs tab[first-visible-tab="true"][last-visible-tab="true"] {
+	visibility: collapse;
+}
+
+/* I don't use tabs so I just hide the new tab button. You should be able to use a similar trick as the rule above with
+css siblings selectors if you want to keep it when the tab bar is visible. */
+#tabbrowser-tabs .tabs-newtab-button { 
+	visibility: collapse !important;
+}
+
+#tabbrowser-tabs tab {
+	min-height: var(--tab-min-height)
+}
+
+/* ---------- location bar -------------*/
+/* 
+  Firefox 57 users: https://www.jeffersonscher.com/gm/url-bar-tweaks.html
+  You can copy/paste into a userChrome.css file, see https://www.userchrome.org/
+  Firefox 52-56 users: roll back your Stylish to version 2.1.1 or 2.0.7 here:
+  https://addons.mozilla.org/firefox/addon/stylish/versions/
+  Then find Stylish on the Add-ons page, click its More link, and turn off updates
+*/
+@-moz-document url(chrome://browser/content/browser.xul) {
+  /* Remove " - Visit" or " - Search with" bar in the drop-down */
+  #PopupAutoCompleteRichResult richlistitem:first-of-type[type*="heuristic"],
+  #PopupAutoCompleteRichResult richlistitem:first-of-type[actiontype="searchengine"],
+  #PopupAutoCompleteRichResult richlistitem:first-of-type[actiontype="visiturl"],
+  #PopupAutoCompleteRichResult richlistitem:first-of-type[actiontype="keyword"] {
+    display:none !important;
+  }
+  /* Hide line for searching sld.tld below "Visit" Line */
+  #PopupAutoCompleteRichResult richlistitem:first-of-type[actiontype="visiturl"] +
+  richlistitem[actiontype="searchengine"] {
+    display:none !important;
+  }
+  #PopupAutoCompleteRichResult .autocomplete-richlistbox {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Restore persistent display of drop-marker */
+  #urlbar:not(:hover) > .urlbar-textbox-container > .urlbar-history-dropmarker {
+    opacity: 1 !important;
+  }
+  /* Set max-height for items visible without scrolling */
+  #PopupAutoCompleteRichResult .autocomplete-richlistbox {
+    /* height:auto doesn't work in photon */
+    max-height: calc(27px * 10) !important;
+  }
+
+  /* Oldbar flex layout based on 
+     https://userstyles.org/styles/131235/firefox-autocomplete-prioritize-url 
+     used with permission, new errors my own */
+
+    .autocomplete-richlistitem[type="favicon"],
+    .autocomplete-richlistitem[type="bookmark"],
+    .autocomplete-richlistitem[type="switchtab"] {
+      display: flex;
+    }
+
+    .autocomplete-richlistitem[type="favicon"] .ac-title,
+    .autocomplete-richlistitem[type="bookmark"] .ac-title,
+    .autocomplete-richlistitem[type="switchtab"] .ac-title {
+      order: 3;
+    }
+
+    .autocomplete-richlistitem[type="favicon"] .ac-separator,
+    .autocomplete-richlistitem[type="bookmark"] .ac-separator,
+    .autocomplete-richlistitem[type="switchtab"] .ac-separator {
+      order: 2;
+      -moz-margin-start: 2px;
+      -moz-margin-end: 4px;
+    }
+    .autocomplete-richlistitem:not([actiontype="searchengine"]) .ac-separator {
+      visibility: hidden !important;
+      -moz-margin-start: 0;
+      -moz-margin-end: 0;
+    }
+
+    .autocomplete-richlistitem[type="favicon"] .ac-url,
+    .autocomplete-richlistitem[type="bookmark"] .ac-url,
+    .autocomplete-richlistitem[type="switchtab"] .ac-url {
+      order: 1;
+      display: block !important; /* Force URL for Switch to Tab */
+    }
+
+    .autocomplete-richlistitem[type="switchtab"] .ac-action,
+    .autocomplete-richlistitem .ac-tags {
+      order: 4;
+    }
+
+  /* Overall Layout of the "Oldbar" style at 60/40 */
+    /* Drop-down width */
+    #PopupAutoCompleteRichResult {
+      max-width: 972px !important; 
+      /*max-width: 1144px !important;*/  /* ----- 1440p size ----- */
+    }
+    /* Space allocated to URL and title */
+    #PopupAutoCompleteRichResult .autocomplete-richlistitem:not([actiontype="searchengine"]) .ac-url-text {
+      min-width: calc(0.60 * (800px - 100px)) !important;
+      max-width: calc(0.60 * (800px - 100px)) !important;
+    }
+    #PopupAutoCompleteRichResult .autocomplete-richlistitem:not([actiontype="searchengine"]) .ac-title-text {
+      min-width: calc(0.40 * (800px - 100px)) !important;
+      max-width: calc(0.40 * (800px - 100px)) !important;
+    }
+/* ----- 1440p size ----- */
+    /*#PopupAutoCompleteRichResult .autocomplete-richlistitem:not([actiontype="searchengine"]) .ac-url-text {
+      min-width: calc(0.75 * (1000px - 100px)) !important;
+      max-width: calc(0.75 * (1000px - 100px)) !important;
+    }
+    #PopupAutoCompleteRichResult .autocomplete-richlistitem:not([actiontype="searchengine"]) .ac-title-text {
+      min-width: calc(0.25 * (1000px - 100px)) !important;
+      max-width: calc(0.25 * (1000px - 100px)) !important;
+    }*/
+
+
+    .autocomplete-richlistitem .ac-type-icon, 
+    .autocomplete-richlistitem .ac-site-icon,
+    .autocomplete-richlistitem .ac-tags {
+      margin-top: 6px;
+    }
+    #PopupAutoCompleteRichResult .autocomplete-richlistitem [anonid="type-icon-spacer"] { /* Beta 57 */
+      display: none !important; 
+    } 
+    #PopupAutoCompleteRichResult { /* Nightly 58 */
+      --item-padding-start: 0 !important;
+    }
+    /* Font-sizes */
+    #PopupAutoCompleteRichResult .autocomplete-richlistitem:not([actiontype="searchengine"]) .ac-title,
+    #PopupAutoCompleteRichResult .autocomplete-richlistitem:not([actiontype="searchengine"]) .ac-url,
+    #PopupAutoCompleteRichResult .autocomplete-richlistitem:not([actiontype="searchengine"]) .ac-action {
+      font-size: 11.5px !important;
+    }
+    .autocomplete-richlistitem .ac-title,
+    .autocomplete-richlistitem .ac-separator,
+    .autocomplete-richlistitem .ac-url,
+    .autocomplete-richlistitem .ac-action {
+        margin-top: 6px;
+    }
+  .autocomplete-richlistitem[selected=true] {
+    background-color: Highlight !important;
+  }
+  .autocomplete-richlistitem[selected=true] .ac-title, 
+  .ac-title[selected],
+  .autocomplete-richlistitem[selected=true] .ac-url, 
+  .ac-url[selected],
+  .autocomplete-richlistitem[selected=true] .ac-action,
+  .ac-action[selected],
+  .autocomplete-richlistitem[selected=true] .ac-separator,
+  .ac-separator[selected] {
+    color: HighlightText !important;
+  }
+  /* Use default text matching style */
+
+  /* Ability to scroll in Fx57 */
+  #PopupAutoCompleteRichResult .autocomplete-richlistbox > scrollbox {
+    overflow-y: auto !important; 
+    padding-right: 3px !important;
+  }
+  #PopupAutoCompleteRichResult .autocomplete-richlistbox {
+    padding-right: 0 !important;
+  }
+}
+
+
+/*---------------  Display the status bar in Firefox Quantum (version 61+)
+    permanently at the bottom of the browser window.
+    Code below works best for the Light Firefox theme and is based on:
+    https://github.com/MatMoul/firefox-gui-chrome-css/blob/master/chrome/userChrome.css
+    This userChrome.css file was last modified on: 28-Jun-2018.
+    Tested to work with Firefox 61 on Windows.
+    Related blog post: http://www.optimiced.com/en/?p=1727
+    http://www.optimiced.com/en/2018/02/11/restore-status-bar-in-firefox-quantum/ --------------- */
+
+#browser-bottombox { height: 20px; border-top: solid 1px #CCC; }
+
+.browserContainer>#statuspanel { left: 4px !important; bottom: 4px; transition-duration: 0s !important; transition-delay: 0s !important; background-color: transparent !important;}
+.browserContainer>#statuspanel>#statuspanel-inner>#statuspanel-label { margin-left: 0px !important; border: none !important; padding: 0px !important; background-color: transparent !important;}
+
+window[inFullscreen="true"] #browser-bottombox { display:none !important; }
+window[inFullscreen="true"] .browserContainer>#statuspanel[type="overLink"] #statuspanel-label { display:none !important; }
+
+/*---- moves menu selections down from title (too high by default) ---- */
+#menubar-items {
+	margin-top: 4px !important;
+}
+
+/* --- removes about under help (could replace with version if done right) --- */
+/*#aboutName {
+	visibility: hidden;
+	position: relative;
+}
+#aboutName:after {
+	visibility: visible;
+	position: absolute;
+	content: "Version 73.0.0";
+}*/
+
+ /* remove "--visit" from first address bar selection */
+#urlbarView-row-0 {
+	display:none !important;
+}
+
+/* Library/bookmarks window ---------- about:config gfx.text.disable-aa to TRUE will turn off cleartype
+/*#placesList treechildren::-moz-tree-cell-text {
+	font-family: MS Serif !important;
+	font-size: 11px !important; 
+	/*font-smooth: never !important;
+	-webkit-font-smoothing : none !important;*/
+
+}
+
+#placesList treechildren::-moz-tree-row {
+	max-height: 18px !important; 
+	padding-bottom: 0px !important;
+	margin-bottom: -3px !important
+}*/
